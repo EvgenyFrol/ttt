@@ -1,15 +1,32 @@
 {
-  "name": "ttt",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "11.0.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  }
+    "name": "ttt",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "@reduxjs/toolkit": "^1.6.0",
+        "@types/react-redux": "^7.1.16",
+        "axios": "^0.21.1",
+        "classnames": "^2.3.1",
+        "next": "11.0.1",
+        "node-sass": "^5.0.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-redux": "^7.2.4",
+        "redux-thunk": "^2.3.0",
+        "rxjs": "^7.2.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.23",
+        "@types/node": "^16.0.0",
+        "@types/react": "^17.0.13",
+        "@types/react-dom": "^17.0.8",
+        "immutable": "^4.0.0-rc.14",
+        "redux-observable": "^2.0.0",
+        "typescript": "^4.3.5"
+    }
 }

@@ -1,14 +1,18 @@
+var data = {
+    playerWin: 0,
+    oppWin: 0,
+    lastWinner: 'Отсутствует'
+};
 
 export default async(req, res) => {
     const httpMethod = req.method
-    const { playerWin, oppWin, lastWinner } = req.body
-    let arr = []
+
+    console.log(req.body);
 
     switch (httpMethod) {
         case 'GET':
-            res.status(200).json(arr)
+             return res.status(200).json(data);          
         case 'POST':
-            res.status(200).json(arr)
-
+            return data = req.body;
     }
 }

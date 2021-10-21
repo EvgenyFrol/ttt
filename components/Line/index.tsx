@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react'
 import Square from '../Square/Square'
 import EndGame from '../EndGame/EndGame'
 import store from '../../store/'
 import { useDispatch } from 'react-redux'
 import { sendStatistic } from '../../store/actions';
-import {typeStore} from '../../type/store'
+import { typeStore } from '../../type/store'
 
 import style from './Line.module.scss'
 
@@ -18,10 +18,24 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
   const [isBegin, setIsBegin] = useState<boolean>(false)
   const [isEnd, setIsEnd] = useState<boolean>(false)
   const [state, setState] = useState<typeStore[]>([])
+  const [statistic, setStatistic] = useState();
   const [closingText, setClosingText] = useState<string>('')
   const [lastWinner, setLastWinner] = useState<string>('Отсутствует')
   const [winLength, setWinLength] = useState<number>(0)
   const [oppWinLength, setOppWinLength] = useState<number>(0)
+
+  const [statisticPlayer, setStatisticPlayer] = useState<number>(winLength);
+  const [statisticOpp, setStaseticOpp] = useState<number>(oppWinLength);
+  const [statisticWinner, setStatisticWinner] = useState<string>(lastWinner);
+
+  const getStatisticGame = useCallback(async () => {
+    await axios.get('/api/game').then(res => {
+      console.log(res.data)
+      setStatisticPlayer(res.data.winLength);
+      setStaseticOpp(res.data.oppWinLength);
+      setStatisticWinner(res.data.lastWinner);
+    })
+  }, [statisticPlayer, setStatisticPlayer, statisticOpp, setStaseticOpp, statisticWinner, setStatisticWinner])
 
   const winners = [
     [0, 1, 2], 
@@ -51,9 +65,7 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
               
               dispatch(sendStatistic(winLength, oppWinLength, lastWinner));
               setClosingText('Вы победили!')
-            }  
-            console.log(winLength, oppWinLength, lastWinner)
-
+            }
           })
         } else {
           oppWinValue.push(item.id) 
@@ -71,32 +83,41 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
         }
       }
     })
-  }, [])
-
-   
+  }, [isBegin, isEnd, closingText, lastWinner, winLength, oppWinLength])
 
   const dispatch = useDispatch();
 
   const startGame = useCallback(() => {
     dispatch({type: 'INIT'})
     setIsBegin(true)
-    setIsEnd(false)
-  }, [])
+    setIsEnd(false);
+    getStatisticGame();
+  }, [statistic])
 
   useEffect(() => {
     store.subscribe(() => (
       setState(store.getState().rootReducer)))
-  }, [])
+  }, [isBegin, isEnd])
 
   useEffect(() => {
     winningCombination(state)
-    console.log(winLength, oppWinLength, lastWinner)   
   }, [state])
   
   return (
     <>
       {!isBegin && <button onClick={startGame}>Начать игру</button>}
-      {isBegin && <div className={style.playingField}>
+      {isBegin && <div className={style.playingField__statistic}>
+        <div className={style.playingField__statisticItem}>
+          Побед игрока: {statisticPlayer ? statisticPlayer : 0}
+        </div>
+        <div className={style.playingField__statisticItem}>
+          Побед противника: {statisticOpp ? statisticOpp : 0}
+        </div>
+        <div className={style.playingField__statisticItem}>
+          Последний победитель: {statisticWinner}
+        </div>
+      </div>}
+      {isBegin && <div className={style.playingField__play}>
         {state.map(item => (
           <Square isClicked={item.isClicked} id={item.id} player={item.player} elem={badge} oppElem={opponentBadge} key={item.id}/>
         ))}
@@ -106,4 +127,4 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
   )
 }
 
-export default Line;
+export default React.memo(Line);

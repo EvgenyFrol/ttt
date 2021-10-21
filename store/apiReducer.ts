@@ -8,12 +8,11 @@ const apiReducer = (state = stat, action: typeStat) => {
 
   switch (action.type) {
     case SEND_STATISTIC:
-     return  action.payload
-    //  {
-    //     playerWin: action.winLength,
-    //     oppWin: action.oppWinLength,
-    //     lastWinner: action.lastWinner
-    //   }
+     return {
+        playerWin: action.winLength,
+        oppWin: action.oppWinLength,
+        lastWinner: action.lastWinner
+      }
     default:
       return state
   }  

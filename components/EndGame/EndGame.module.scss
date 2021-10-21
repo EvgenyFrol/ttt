@@ -6,4 +6,14 @@
   right: 0;
   background-color: rgb(218, 210, 210);
   z-index: 3;
+
+  &__text {
+    font: 600 48px/64px Ubuntu, sans-serif;
+    text-align: center
+  }
+
+  &__buttonWrapper {
+    display: flex;
+    justify-content: center;
+  }
 }

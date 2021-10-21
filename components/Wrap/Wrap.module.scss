@@ -1,29 +1,27 @@
-// @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
-// .startGame {
-//   background: #000;
+.startGame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-//   &__header {
-//     font: 600 48px/64px Ubuntu, sans-serif;
-//     text-align: center
-//   }
+  &__title {
+    margin-bottom: 20px;
+  }
 
-//   &__itemSelection {
-//     width: 70%;
-//     margin: 0 auto;
-//   }
+  &__header {
+    font: 600 48px/64px Ubuntu, sans-serif;
+    text-align: center
+  }
 
-//   &__itemSelection input {
-//     position: relative;
-//     opacity: 0
-//   }
+  &__desc {
+    text-align: center;
+  }
 
-//   &__itemSelection label {
-//     position: absolute;
-//     min-width: 40px;
-//     height: 40px;
-//     border: 3px solid #000;
-//     border-radius: 40%;
-//   }
-  
-// }
+  &__itemSelection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }  
+}

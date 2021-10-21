@@ -31,4 +31,4 @@ const Square: React.FC<SquareProp> = ({ id, elem, oppElem, player, isClicked}) =
     onClick={changeSquare} /> 
   )}
 
-export default Square;
+export default React.memo(Square);

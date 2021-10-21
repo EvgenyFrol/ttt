@@ -1,5 +1,8 @@
 .playingField {
-    display: flex;
-    width: 900px;
-    flex-wrap: wrap;
+    &__play {
+        display: flex;
+        width: 600px;
+        flex-wrap: wrap;
+    }
+
 }

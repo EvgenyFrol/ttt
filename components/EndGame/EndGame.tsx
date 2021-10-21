@@ -24,4 +24,4 @@ const EndGame: React.FC<endGame> = ({text, repeatGame}) => {
   )
 }
 
-export default EndGame;
+export default React.memo(EndGame);

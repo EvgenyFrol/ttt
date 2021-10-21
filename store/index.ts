@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import rootReducer from './rootReducer'
 import apiReducer from './apiReducer';
 import { createEpicMiddleware, Epic, ofType } from 'redux-observable';
-import { mergeMap, map, catchError, of, from } from 'rxjs';
+import { mergeMap, map, catchError, of, from, mapTo } from 'rxjs';
 import { SEND_STATISTIC  } from './actions';
 
 const epicMiddleware = createEpicMiddleware();
@@ -18,7 +18,7 @@ const fetchUserEpic:Epic<any> = action$ => action$.pipe(
   ofType(SEND_STATISTIC),
   mergeMap(action => from(axios.post('/api/game', action.payload)
   ).pipe(
-      map(res => console.log(res)),
+      mapTo({type: "END"}),
       catchError(error => {
         console.log('error: ', error);
         return of(error);

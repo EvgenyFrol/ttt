@@ -35,7 +35,7 @@ const Wrap: React.FC = () => {
         </div>
       </div>}
 
-      <Line badge={badge} opponentBadge={opponentBadge} />
+      {!!badge && !!opponentBadge && <Line badge={badge} opponentBadge={opponentBadge} />}
     </div>
   )
 }

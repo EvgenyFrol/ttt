@@ -5,4 +5,11 @@
         flex-wrap: wrap;
     }
 
+    &__statisticItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font: 400 24px/28px Ubuntu, sans-serif;
+    }
+
 }

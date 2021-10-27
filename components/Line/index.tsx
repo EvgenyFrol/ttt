@@ -31,9 +31,9 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
   const getStatisticGame = useCallback(async () => {
     await axios.get('/api/game').then(res => {
       console.log(res.data)
-      setStatisticPlayer(res.data.winLength);
-      setStaseticOpp(res.data.oppWinLength);
-      setStatisticWinner(res.data.lastWinner);
+      setStatisticPlayer(res.data.win);
+      setStaseticOpp(res.data.opp);
+      setStatisticWinner(res.data.last);
     })
   }, [statisticPlayer, setStatisticPlayer, statisticOpp, setStaseticOpp, statisticWinner, setStatisticWinner])
 
@@ -63,7 +63,7 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
               setLastWinner('Игрок')
               setWinLength(winLength + 1);    
               
-              dispatch(sendStatistic(winLength, oppWinLength, lastWinner));
+              dispatch(sendStatistic(winLength + 1, oppWinLength, 'Игрок'));
               setClosingText('Вы победили!')
             }
           })
@@ -74,9 +74,9 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
             if (group.reduce((acc, el) => acc && oppWinValue.includes(el), true)) {
               setIsEnd(true)
               setLastWinner('Бот')
-              setOppWinLength(oppWinLength + 1)      
+              setOppWinLength(oppWinLength + 1)
 
-              dispatch(sendStatistic(winLength, oppWinLength, lastWinner))
+              dispatch(sendStatistic(winLength, oppWinLength + 1, 'Бот'))
               setClosingText('Вы проиграли!')
             }
           })
@@ -114,7 +114,7 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
           Побед противника: {statisticOpp ? statisticOpp : 0}
         </div>
         <div className={style.playingField__statisticItem}>
-          Последний победитель: {statisticWinner}
+          Последний победитель: {statisticWinner ? statisticWinner : 'Отсутствует'}
         </div>
       </div>}
       {isBegin && <div className={style.playingField__play}>

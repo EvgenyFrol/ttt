@@ -1,18 +1,24 @@
-var data = {
-    playerWin: 0,
-    oppWin: 0,
-    lastWinner: 'Отсутствует'
-};
+import { Data } from '../../helpers/data';
+const data = new Data();
 
 export default async(req, res) => {
-    const httpMethod = req.method
-
-    console.log(req.body);
-
-    switch (httpMethod) {
-        case 'GET':
-             return res.status(200).json(data);          
-        case 'POST':
-            return data = req.body;
+    if (req.method === 'GET') {
+        try {
+            res.status(200).json(data.getData()); 
+        } catch (err) {
+            res.json(err);
+            res.status(405).end();
+        }
+    }
+    
+    if (req.method === 'POST') {
+        try {       
+            data.winLength = req.body.winLength
+            data.oppWinLength = req.body.oppWinLength
+            data.lastWinner = req.body.lastWinner
+            res.status(200).json(data.getData());             
+        } catch (err) {
+            res.status(err).json({});
+        }
     }
 }

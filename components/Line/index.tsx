@@ -30,7 +30,6 @@ const Line: React.FC<figure> = ({badge, opponentBadge}) => {
 
   const getStatisticGame = useCallback(async () => {
     await axios.get('/api/game').then(res => {
-      console.log(res.data)
       setStatisticPlayer(res.data.win);
       setStaseticOpp(res.data.opp);
       setStatisticWinner(res.data.last);
